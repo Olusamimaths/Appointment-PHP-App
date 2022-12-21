@@ -1,6 +1,7 @@
 <?php
 include_once 'src/util/Request.php';
 include_once 'src/util/Router.php';
+require_once 'src/model/database.php';
 
 $router = new Router(new Request);
 
@@ -11,7 +12,7 @@ HTML;
 });
 
 $router->post('/data', function($request) {
-  print($request->getBody());
-  echo $request->getBody();
+  // print($request->getBody());
+  // echo $request->getBody();
   return json_encode($request->getBody());
 });

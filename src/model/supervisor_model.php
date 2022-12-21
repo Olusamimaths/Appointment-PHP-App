@@ -1,5 +1,5 @@
 <?php
-require_once 'src/db.php';
+require_once 'database.php';
 class SupervisorModel extends Database
 {
     public function createSupervisor($supervisor)

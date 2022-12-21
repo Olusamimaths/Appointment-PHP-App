@@ -1,5 +1,5 @@
 <?php
-require_once 'src/db.php';
+require_once 'database.php';
 class AppointmentRequestModel extends Database
 {
     public function getAppointmentRequests()
@@ -13,7 +13,7 @@ class AppointmentRequestModel extends Database
         $query =
             'INSERT INTO appointment_requests (daysAvailableId,studentId, appointmentDate, status) VALUES (?, ?, ?, ?)';
         $params = [
-            'iis',
+            'iiss',
             $appointmentRequest['daysAvailableId'],
             $appointmentRequest['studentId'],
             $appointmentRequest['appointmentDate'],
