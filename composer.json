@@ -1,0 +1,16 @@
+{
+    "name": "proft/appointment-php-app",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Proft\\AppointmentPhpApp\\": "/"
+        }
+    },
+    "authors": [
+        {
+            "name": "timzprof",
+            "email": "timilehin.olumofin@gmail.com"
+        }
+    ],
+    "require": {}
+}
