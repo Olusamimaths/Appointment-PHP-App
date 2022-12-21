@@ -11,5 +11,7 @@ HTML;
 });
 
 $router->post('/data', function($request) {
+  print($request->getBody());
+  echo $request->getBody();
   return json_encode($request->getBody());
 });
