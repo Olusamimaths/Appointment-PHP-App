@@ -8,8 +8,8 @@ class SupervisorModel extends Database
             'INSERT INTO supervisors (firstName, lastName, username, email, image) VALUES (?, ?, ?, ?)';
         $params = [
             'sssss',
-            $supervisor['firstName'],
-            $supervisor['lastName'],
+            $supervisor['first_name'],
+            $supervisor['last_name'],
             $supervisor['username'],
             $supervisor['email'],
             $supervisor['image'],

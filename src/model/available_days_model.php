@@ -8,13 +8,13 @@ class DaysAvailableModel extends Database
     }
 
     public function createDaysAvailable($daysAvailable) {
-        $query = 'INSERT INTO DaysAvailable (supervisorId, day, startTime, endTime) VALUES (?, ?, ?, ?)';
+        $query = 'INSERT INTO DaysAvailable (supervisor_id, day, start_time, end_time) VALUES (?, ?, ?, ?)';
         $params = [
             'isss',
-            $daysAvailable['supervisorId'],
+            $daysAvailable['supervisor_id'],
             $daysAvailable['day'],
-            $daysAvailable['startTime'],
-            $daysAvailable['endTime']
+            $daysAvailable['start_time'],
+            $daysAvailable['end_time']
         ];
         return $this->Insert($query, $params);
     }

@@ -34,7 +34,7 @@ class StudentsModel extends Model
     function __construct(Database $db)
     {
         $this->db = $db;
-        $this->table_name = 'Student';
+        // $this->table_name = 'Student';
     }
 
     public function getStudents()
@@ -47,7 +47,7 @@ class StudentsModel extends Model
     {
        try {
         $query =
-            'INSERT INTO Student (firstName, lastName, matric, password) VALUES (?, ?, ?, ?)';
+            'INSERT INTO Student (first_name, last_name, matric, password) VALUES (?, ?, ?, ?)';
         $params = [
             'ssis',
             $student->first_name,

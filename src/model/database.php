@@ -29,8 +29,8 @@ class Database
         try {
             $student_sql = "CREATE TABLE IF NOT EXISTS Student (
                 matric int NOT NULL PRIMARY KEY,
-                firstName varchar(50)  NOT NULL,
-                lastName varchar(50)  NOT NULL,
+                first_name varchar(50)  NOT NULL,
+                last_name varchar(50)  NOT NULL,
                 password varchar(255)  NOT NULL,
                 image varchar(255) NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
@@ -39,8 +39,8 @@ class Database
 
             $supervisor_sql = "CREATE TABLE IF NOT EXISTS Supervisor (
                 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                firstName varchar(50)  NOT NULL,
-                lastName varchar(50)  NOT NULL,
+                first_name varchar(50)  NOT NULL,
+                last_name varchar(50)  NOT NULL,
                 username varchar(50)  NOT NULL,
                 image varchar(255) NULL,
                 email varchar(255) NOT NULL,
@@ -60,8 +60,8 @@ class Database
 
             $semester_sql = "CREATE TABLE IF NOT EXISTS Semester (
                 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                startDate varchar(50)  NOT NULL,
-                endDate varchar(50)  NOT NULL,
+                start_date varchar(50)  NOT NULL,
+                end_date varchar(50)  NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );";
@@ -69,20 +69,24 @@ class Database
             $days_available_sql = "CREATE TABLE IF NOT EXISTS DaysAvailable (
                 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 day varchar(50)  NOT NULL,
-                maxStudent int default(0),
-                startTime varchar(50) NOT NULL,
-                endTime varchar(50) NOT NULL,
+                max_student int default(0),
+                start_time varchar(50) NOT NULL,
+                end_time varchar(50) NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );";
 
             $appointment_request_sql = "CREATE TABLE IF NOT EXISTS AppointmentRequest (
                 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                daysAvailableId int  NOT NULL,
-                FOREIGN KEY (daysAvailableId) REFERENCES DaysAvailable(id),
-                appointmentDate varchar(50) NOT NULL,
-                studentId int NOT NULL,
-                FOREIGN KEY (studentId) REFERENCES Student(id),
+                days_available_id int  NOT NULL,
+                FOREIGN KEY (days_available_id) REFERENCES DaysAvailable(id),
+                appointment_date varchar(50) NOT NULL,
+                student_matric int NOT NULL,
+                FOREIGN KEY (student_matric) REFERENCES Student(matric),
+
+                message_id int NULL,
+                FOREIGN KEY (message_id) REFERENCES Message(id),
+
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );";
