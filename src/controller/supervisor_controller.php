@@ -1,10 +1,12 @@
 <?php
 
 require_once 'src/model/supervisor_model.php';
+require_once 'src/model/available_days_model.php';
 
 class SupervisorController
 {
     private $supervisorModel = null;
+    private $availableDaysModel = null;
 
     public function __construct()
     {
@@ -13,6 +15,6 @@ class SupervisorController
 
     public function createSchedule($schedule)
     {
-        $this->supervisorModel->createSchedule($schedule);
+        $this->availableDaysModel->createDaysAvailable($schedule);
     }
 }
