@@ -1,36 +1,42 @@
 <?php
 
+require_once 'base_controller.php';
+require_once 'src/model/database.php';
 require_once 'src/model/student_model.php';
 require_once 'src/model/appointment_request_model.php';
 
-class StudentController
+class StudentController extends Controller
 {
     private $studentModel = null;
     private $appointmentRequestModel = null;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $this->studentModel = new StudentsModel();
+        $this->db = $db;
+        $this->studentModel = new StudentsModel($this->db);
         $this->appointmentRequestModel = new AppointmentRequestModel();
     }
 
-    public function register($student)
+    public function register(string $first_name, string $last_name, int $matric, string $password)
     {
-        $password = $student['password'];
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $student['password'] = $hashedPassword;
-        $this->studentModel->createStudent($student);
+        try {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $student = new Student($first_name, $last_name, $matric, $hashedPassword);
+            $this->studentModel->createStudent($student);
+            unset($student->password);
+            return $student;
+        } catch (Exception $e) {
+            printf($e->getMessage());
+        }
     }
 
-    public function login($student)
+    public function login($password)
     {
-        $password = $student['password'];
-        $validPassword = password_verify($password, $student['password']);
-        if($validPassword)
+        //$validPassword = password_verify($password, $student['password']);
+        if(null)
         {
             // login
-            return json_encode($student);
+            return json_encode(null);
         }
         else
         {

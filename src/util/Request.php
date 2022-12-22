@@ -41,13 +41,10 @@ class Request implements IRequest
 
     if ($this->requestMethod == "POST" || $this->requestMethod == "PUT")
     {
-      $body = array();
-      foreach($_POST as $key => $value)
-      {
-        $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-      }
-
-      return $body;
+      // Takes raw data from the request
+      $json = file_get_contents('php://input');
+      $data = json_decode($json);
+      return $data;
     }
   }
 }
