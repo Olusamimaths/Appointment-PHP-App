@@ -2,56 +2,38 @@
 
 require_once 'base_controller.php';
 require_once 'src/model/database.php';
-require_once 'src/model/student_model.php';
-require_once 'src/model/appointment_request_model.php';
+require_once 'src/model/available_days_model.php';
 
-class StudentController extends Controller
+class DaysAvailabaleController extends Controller
 {
-    private $studentModel = null;
+    private $daysAvailableModel = null;
     private $appointmentRequestModel = null;
     private $messageModel = null;
 
     public function __construct(Database $db)
     {
         $this->db = $db;
-        $this->studentModel = new StudentsModel($this->db);
+        $this->daysAvailableModel = new DaysAvailableModel($this->db);
         $this->appointmentRequestModel = new AppointmentRequestModel();
     }
 
-    public function register(
-        string $first_name,
-        string $last_name,
-        int $matric,
-        string $password
-    ) {
-        try {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $student = new Student(
-                $first_name,
-                $last_name,
-                $matric,
-                $hashed_password
-            );
-            $this->studentModel->createStudent($student);
-            unset($student->password);
-            return $student;
-        } catch (Exception $e) {
-            printf($e->getMessage());
-            return null;
-        }
-    }
-
-    public function login(string $matric, string $password)
+    public function createSchedule($schedules)
     {
         try {
-            $student = $this->studentModel->getStudent($matric);
-            if (password_verify($password, $student[0]['password'])) {
-                unset($student[0]['password']);
-                return base64_encode($student[0]['matric']);
+            $days_available = [];
+            foreach ($schedules as $schedule) {
+                $days_available[] = new DaysAvailable(
+                    $schedule['supervisor_id'],
+                    $schedule['day'],
+                    $schedule['start_time'],
+                    $schedule['end_time']
+                );
             }
-            return null;
+            $this->daysAvailableModel->createDaysAvailable($days_available);
+            return $days_available;
         } catch (Exception $e) {
             printf($e->getMessage());
+            return null;
         }
     }
 

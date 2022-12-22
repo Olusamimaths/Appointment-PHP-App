@@ -64,7 +64,7 @@ class StudentsModel extends Model
     public function getStudent($matric)
     {
         $query = 'SELECT * FROM Student WHERE matric = ?';
-        $params = ['m', $matric];
+        $params = ['i', $matric];
         return $this->db->Select($query, $params);
     }
 }

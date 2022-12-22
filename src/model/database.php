@@ -44,6 +44,7 @@ class Database
                 username varchar(50)  NOT NULL,
                 image varchar(255) NULL,
                 email varchar(255) NOT NULL,
+                
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );";
@@ -96,7 +97,7 @@ class Database
             foreach($queries as $query){
                 $this->connection->query($query);
             }
-            printf("Tables Created Successfully");
+            // var_dump("Tables Created Successfully");
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
