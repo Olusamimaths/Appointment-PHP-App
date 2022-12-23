@@ -12,9 +12,9 @@ require_once 'src/controller/supervisor_controller.php';
 // CORS
 header('Access-Control-Allow-Origin: *');
 header(
-    'Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+    'Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Origin'
 );
-header('Access-Control-Allow-Methods: GET,POST,PUT,DELETE');
+header('Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS');
 header('Content-Type: application/json');
 
 // Database

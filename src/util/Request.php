@@ -54,7 +54,6 @@ class Request implements IRequest
       return;
     }
 
-
     if ($this->requestMethod == "POST" || $this->requestMethod == "PUT")
     {
       // Takes raw data from the request
