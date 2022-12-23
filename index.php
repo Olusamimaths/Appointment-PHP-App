@@ -64,7 +64,7 @@ $router->post('/supervisors/register', function (Request $request) {
 
     if (isset($supervisor)) {
         http_response_code(201);
-        return json_encode([
+        echo json_encode([
             'status' => 201,
             'message' => 'Supervisor Created Successfully',
             'data' => [
@@ -73,7 +73,7 @@ $router->post('/supervisors/register', function (Request $request) {
         ]);
     } else {
         http_response_code(500);
-        return json_encode([
+        echo json_encode([
             'status' => 500,
             'message' => 'Internal Server Error',
         ]);
