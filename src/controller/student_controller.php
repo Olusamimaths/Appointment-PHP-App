@@ -45,7 +45,7 @@ class StudentController extends Controller
     {
         try {
             $student = $this->studentModel->getStudent($matric);
-            if (password_verify($password, $student[0]['password'])) {
+            if ($student && password_verify($password, $student[0]['password'])) {
                 unset($student[0]['password']);
                 return base64_encode($student[0]['matric']);
             }

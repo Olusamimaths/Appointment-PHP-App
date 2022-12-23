@@ -8,6 +8,7 @@ require_once 'src/model/supervisor_model.php';
 
 require_once 'src/controller/student_controller.php';
 require_once 'src/controller/supervisor_controller.php';
+require_once 'src/controller/days_available_controller.php';
 
 // CORS
 header('Access-Control-Allow-Origin: *');
@@ -26,6 +27,7 @@ $db->create_tables();
 // Controllers
 $student_controller = new StudentController($db);
 $supervisor_controller = new SupervisorController($db);
+$days_available_controller = new DaysAvailabaleController($db);
 
 // Router
 $router = new Router(new Request());
@@ -35,6 +37,74 @@ $router = new Router(new Request());
 //   <h1>Hello world</h1>
 // HTML;
 // });
+
+// $router->get('/supervisors/schedule', function (Request $request) {
+//     global $days_available_controller;;
+//     $days_available = $days_available_controller->getAllSchedules();
+
+//     if (isset($days_available)) {
+//         http_response_code(201);
+//         return json_encode([
+//             'status' => 201,
+//             'message' => 'Schedule created',
+//             'data' => [
+//                 'schedules' => $days_available
+//             ]
+//         ]);
+//     } else {
+//         http_response_code(500);
+//         return json_encode([
+//             'status' => 500,
+//             'message' => 'Internal Server Error',
+//         ]);
+//     }
+// });
+
+$router->post('/supervisors/schedule', function (Request $request) {
+    $req_data = $request->getBody();
+    if(!$req_data->schedules || count($req_data->schedules) < 1) {
+        http_response_code(400);
+        return json_encode([
+            'status' => 400,
+            'message' => 'Incomplete details',
+        ]);
+    }
+
+    for($i = 0; $i < count($req_data->schedules); $i++) {
+        if (
+            !isset($req_data->schedules[$i]->supervisor_id) ||
+            !isset($req_data->schedules[$i]->day) ||
+            !isset($req_data->schedules[$i]->max_student) ||
+            !isset($req_data->schedules[$i]->start_time) ||
+            !isset($req_data->schedules[$i]->end_time)
+        ) {
+            http_response_code(400);
+            return json_encode([
+                'status' => 400,
+                'message' => 'Invalid schedule details',
+            ]);
+        }
+    }
+    
+
+
+    global $days_available_controller;;
+    $days_available = $days_available_controller->createSchedule($req_data->schedules);
+
+    if (isset($days_available)) {
+        http_response_code(201);
+        return json_encode([
+            'status' => 201,
+            'message' => 'Schedule created',
+        ]);
+    } else {
+        http_response_code(500);
+        return json_encode([
+            'status' => 500,
+            'message' => 'Internal Server Error',
+        ]);
+    }
+});
 
 
 $router->post('/supervisors/register', function (Request $request) {

@@ -44,7 +44,8 @@ class Database
                 username varchar(50)  NOT NULL,
                 image varchar(255) NULL,
                 email varchar(255) NOT NULL,
-                
+                password varchar(255)  NOT NULL,
+
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );";
@@ -69,6 +70,10 @@ class Database
 
             $days_available_sql = "CREATE TABLE IF NOT EXISTS DaysAvailable (
                 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+               
+                supervisor_id int NOT NULL,
+                FOREIGN KEY (supervisor_id) REFERENCES Supervisor(id),
+
                 day varchar(50)  NOT NULL,
                 max_student int default(0),
                 start_time varchar(50) NOT NULL,
