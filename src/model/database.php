@@ -44,8 +44,8 @@ class Database
                 username varchar(50)  NOT NULL,
                 image varchar(255) NULL,
                 email varchar(255) NOT NULL,
-                
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+                password varchar(255)  NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );";
 
